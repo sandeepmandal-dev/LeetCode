@@ -1,3 +1,19 @@
+/*
+Problem: 49. Group Anagrams
+
+Approach:
+1. Traverse each string in the array.
+2. Convert the string into a char array.
+3. Sort the char array.
+4. Convert the sorted array back into a String.
+5. Use the sorted string as the HashMap key.
+6. Add the original string to the corresponding list.
+7. Return all the values from the HashMap.
+
+Time Complexity: O(n * k log k)
+Space Complexity: O(n * k)
+*/
+
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
         HashMap<String,List<String>> map=new HashMap<>();
