@@ -2,8 +2,6 @@
  ## Problem
 Merge `k` sorted linked lists into one sorted linked list and return the merged list.
 
-**LeetCode:** https://leetcode.com/problems/merge-k-sorted-lists/
-
 ## Approach
 - Use a **Min Heap (PriorityQueue)** to always get the smallest node among the `k` linked lists.
 - Insert the first node of each non-empty list into the heap.
