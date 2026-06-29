@@ -1,0 +1,29 @@
+/*
+Used the Fixed-Size Sliding Window technique.
+Calculated the sum of the first k elements.
+Slid the window by removing the leftmost element and adding the next element.
+Tracked the maximum window sum and returned maxSum / k.
+
+Time Complexity: O(n)
+Space Complexity: O(1) */
+
+class Solution {
+    public double findMaxAverage(int[] nums, int k) {
+       double sum=0;
+       for(int i=0;i<k;i++){
+         sum+=nums[i];
+        }
+        double maxSum=sum;
+
+        //slide window
+        for(int right = k; right < nums.length; right++){
+            //remove first
+           sum -= nums[right - k];
+           //add 
+           sum += nums[right];
+           //update maxSum
+           maxSum = Math.max(maxSum, sum);
+        }
+       return maxSum/k;
+    }
+}
