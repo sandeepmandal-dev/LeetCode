@@ -1,0 +1,35 @@
+/*
+Approach:
+- Use the Sliding Window technique with two pointers: left and right.
+- Expand the window by moving the right pointer and adding the current element to the sum.
+- Whenever the window sum becomes greater than or equal to the target:
+  - Update the minimum length of the valid subarray.
+  - Shrink the window from the left by removing the leftmost element from the sum.
+- Continue this process until the end of the array.
+- If no valid subarray is found, return 0.
+
+Why Sliding Window?
+Since all elements in the array are positive, expanding the window increases the sum and shrinking the window decreases it. This allows us to efficiently find the smallest valid subarray without checking every possible subarray, reducing the time complexity from O(n²) to O(n).
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int left=0;
+        int sum=0;
+        int minLength=Integer.MAX_VALUE;
+
+        for(int right=0;right<nums.length;right++){
+            sum+=nums[right];
+
+            while(sum>=target){
+                minLength = Math.min(minLength, right - left + 1);
+                sum -= nums[left];
+                left++;
+            }
+        }
+        return minLength == Integer.MAX_VALUE ? 0 : minLength;
+
+    }
+}
