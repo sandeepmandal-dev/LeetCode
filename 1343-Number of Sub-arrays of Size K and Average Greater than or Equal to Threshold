@@ -1,0 +1,41 @@
+/*
+Approach:
+- Use the Sliding Window technique.
+- Calculate the sum of the first window of size k.
+- Check if its average is greater than or equal to the given threshold.
+- Slide the window one element at a time:
+  - Remove the leftmost element from the current window.
+  - Add the next element to the window.
+- After each slide, calculate the average and increment the count if it meets the threshold.
+- Return the total count of valid subarrays.
+
+Why Sliding Window?
+Instead of calculating the sum of every subarray of size k from scratch, update the current window's sum by removing the outgoing element and adding the incoming element. This reduces the time complexity from O(n × k) to O(n).
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
+class Solution {
+    public int numOfSubarrays(int[] arr, int k, int threshold) {
+        int count=0;
+        int sum=0;
+        for(int i=0;i<k;i++){
+         sum+=arr[i];
+        }
+        if(sum/k >=threshold ){
+            count++;
+        }
+
+        for(int i=k;i<arr.length;i++){
+            sum-=arr[i-k];
+
+            sum+=arr[i];
+
+            int avg=sum/k;
+            if(avg>=threshold){
+                count++;
+            }
+        }
+        return count;
+    }
+}
