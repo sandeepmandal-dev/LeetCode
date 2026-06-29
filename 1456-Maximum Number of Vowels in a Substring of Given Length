@@ -1,0 +1,42 @@
+/*
+Approach:
+- Use the Sliding Window technique.
+- Count the number of vowels in the first window of size k.
+- Store this count as the current maximum.
+- Slide the window one character at a time:
+  - Remove the leftmost character if it is a vowel.
+  - Add the new rightmost character if it is a vowel.
+- Update the maximum vowel count after each window.
+
+Why Sliding Window?
+Instead of counting vowels for every substring from scratch, we only update the count by removing the outgoing character and adding the incoming character. This reduces the time complexity from O(n × k) to O(n).
+
+Time Complexity: O(n)
+Space Complexity: O(1)
+*/
+class Solution {
+    public int maxVowels(String s, int k) {
+        int count=0;
+        for(int i=0;i<k;i++){
+            if(s.charAt(i)=='a' || s.charAt(i)=='e' || s.charAt(i)=='i' || s.charAt(i)=='o' || s.charAt(i)=='u'){
+                count++;
+            }
+        }
+
+        int maxCount=count;
+
+        for(int right=k;right<s.length();right++){
+             if(s.charAt(right-k)=='a' || s.charAt(right-k)=='e' || s.charAt(right-k)=='i' || s.charAt(right-k)=='o' || s.charAt(right-k)=='u'){
+                count--;
+            }
+            
+            if(s.charAt(right)=='a' || s.charAt(right)=='e' || s.charAt(right)=='i' || s.charAt(right)=='o' || s.charAt(right)=='u'){
+                count++;
+            }
+
+           maxCount=Math.max(maxCount,count);
+        }
+
+        return maxCount;
+    }
+}
