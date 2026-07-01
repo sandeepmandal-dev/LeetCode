@@ -1,0 +1,36 @@
+/*
+Approach:
+- Use the two-pointer technique.
+- Pointer `i` traverses string `s` (the subsequence).
+- Pointer `j` traverses string `t` (the main string).
+- Compare the current characters of both strings:
+    - If they match, move `i` to the next character in `s`.
+    - Always move `j` to the next character in `t`.
+- If `j` reaches the end of `t` before all characters of `s` are matched,
+  return `false`.
+- If all characters of `s` are matched (`i == s.length()`), return `true`.
+
+Time Complexity: O(n)
+- `n` = length of `t`
+- Each character in `t` is visited at most once.
+
+Space Complexity: O(1)
+- Only two pointers are used, so no extra space is required.
+*/
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+       int i=0;
+       int j=0;
+       while(i<s.length()){
+        if(j>=t.length()){
+            return false;
+        }
+        if(s.charAt(i)==t.charAt(j)){
+            i++;
+        }
+        j++;
+       }
+        return true;
+    }
+   
+}
