@@ -1,0 +1,64 @@
+/*
+Approach:
+- First, sort the array to efficiently apply the two-pointer technique.
+- Iterate through the array and fix one element `nums[i]`.
+- Skip duplicate values of `nums[i]` to avoid duplicate triplets.
+- For each fixed element:
+    - Initialize two pointers:
+        - `j = i + 1` (left pointer)
+        - `k = nums.length - 1` (right pointer)
+    - Calculate the sum of `nums[i] + nums[j] + nums[k]`.
+        - If the sum is greater than 0, move the right pointer left (`k--`).
+        - If the sum is less than 0, move the left pointer right (`j++`).
+        - If the sum is 0:
+            - Add the triplet to the result.
+            - Move both pointers inward.
+            - Skip duplicate values for both pointers to avoid duplicate triplets.
+- Continue until all unique triplets whose sum equals 0 are found.
+
+Time Complexity: O(n²)
+- Sorting takes O(n log n).
+- The outer loop runs O(n) times, and the two-pointer search takes O(n).
+- Overall complexity is O(n²).
+
+Space Complexity: O(1)
+- Ignoring the space required for storing the output.
+- Only a few extra variables are used.
+*/
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+       
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length;i++){
+            int j=i+1;
+            int k=nums.length-1;
+             if( i>0 && nums[i]==nums[i-1]){
+            continue;
+        }
+
+            while(j<k){
+                int sum=nums[i]+nums[j]+nums[k];
+                if(sum>0){
+                    k--;
+                }
+                else if(sum<0){
+                    j++;
+                }
+                else{
+                   result.add(Arrays.asList(nums[i], nums[j], nums[k]));
+
+                    j++;
+                    k--;
+                    while (j < k && nums[j] == nums[j - 1]) {
+                        j++;
+                    }
+                    while (j < k && nums[k] == nums[k + 1]) {
+                        k--;
+                    }
+                }
+            }
+        }
+         return result;
+    }
+}
